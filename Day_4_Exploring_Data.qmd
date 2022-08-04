@@ -26,7 +26,7 @@ Check out your data a bit:
 #Tell me the column names
 names(penguins)
 
-#What are the dimmensions?
+#What are the dimensions?
 dim(penguins)
 
 #Can you show me the first 6 lines?
@@ -35,4 +35,40 @@ head(penguins)
 #Can you show me the last 6 lines?
 tail(penguins)
 
+```
+
+```{r}
+skim(penguins)
+```
+
+```{r}
+#| include: false
+GGally::ggpairs(penguins)
+```
+
+## Jitterplot
+
+Flipper length by species
+
+```{r}
+#| fig-cap: "My awesome figure caption"
+
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_jitter(width = 0.2,
+              alpha = 0.5,
+              aes(color = species)) + 
+  geom_boxplot(fill = NA) +
+  theme_light() +
+  #Set up your own color schemes
+  scale_color_manual(values = c("darkorchid4", "cyan4", "goldenrod")) +
+  labs(x = "Penguin Species",
+       y = "Flipper Lenght (mm)",
+       title = "Palmer Archipelago Penguin Flippers")
+  
+```
+
+```{r}
+ggplot(data = penguins, aes(x = bill_length_mm)) +
+  geom_histogram(aes(fill = species), color = "magenta") +
+  facet_wrap(~species, ncol = 1)
 ```
